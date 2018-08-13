@@ -55,10 +55,7 @@ class PaasClient:
                                 'instances': app['entity']['instances']
                             }
             except BaseException as e:
-                if 'app' not in locals():
-                    msg = 'Failed to get instance info: {}'.format(str(e))
-                else:
-                    msg = 'Failed to get info for app {}: {}'.format(app['entity']['name'], str(e))
+                msg = 'Failed to get stats for app {}: {}'.format(app['entity']['name'], str(e))
                 logging.error(msg)
                 self.reset_cloudfoundry_client()
 
