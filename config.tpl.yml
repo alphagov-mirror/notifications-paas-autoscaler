@@ -2,7 +2,7 @@
 GENERAL:
   # cf config
   CF_API_URL: https://api.cloud.service.gov.uk
-  CF_ORG: govuk-notify
+  CF_ORG: {{ CF_ORG }}
   CF_SPACE: {{ CF_SPACE }}
 
   # general autoscaler config
@@ -19,12 +19,31 @@ GENERAL:
   MAX_INSTANCE_COUNT_LOW: {{ MAX_INSTANCE_COUNT_LOW }}
 
 SCALERS:
+  PROMETHEUS_URL: https://prom-1.monitoring.gds-reliability.engineering
   AWS_REGION: eu-west-1
   SQS_QUEUE_PREFIX: {{ SQS_QUEUE_PREFIX }}
   DEFAULT_SCHEDULE_SCALE_FACTOR: {{ DEFAULT_SCHEDULE_SCALE_FACTOR }}
   SCHEDULE_SCALER_ENABLED: {{ SCHEDULE_SCALER_ENABLED }}
 
 APPS:
+  - name: notify-admin
+    min_instances: {{ MIN_INSTANCE_COUNT_LOW }}
+    max_instances: {{ MAX_INSTANCE_COUNT_HIGH }}
+    threshold: 2000
+    scalers: [PrometheusScaler, ScheduleScaler]
+    PrometheusScaler:
+      metric_name: requests
+      labels:
+        app: notify-admin
+        exported_space: {{ CF_SPACE }}
+        organisation: {{ CF_ORG }}
+    schedule:
+      scale_factor: 0.5
+      workdays:
+        - 08:00-19:00
+      weekends:
+        - 09:00-17:00
+
   - name: notify-api
     min_instances: {{ MIN_INSTANCE_COUNT_HIGH }}
     max_instances: {{ MAX_INSTANCE_COUNT_HIGH }}

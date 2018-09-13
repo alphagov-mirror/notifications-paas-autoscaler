@@ -21,6 +21,7 @@ dependencies: venv ## Install build dependencies
 
 generate-config:
 	@$(if ${CF_SPACE},,$(error Must specify CF_SPACE))
+	@echo "CF_ORG: ${CF_ORG}" >> data.yml
 	@echo "COOLDOWN_SECONDS_AFTER_SCALE_UP: 300" >> data.yml
 	@echo "COOLDOWN_SECONDS_AFTER_SCALE_DOWN: 60" >> data.yml
 	@echo "DEFAULT_SCHEDULE_SCALE_FACTOR: 0.6" >> data.yml
