@@ -146,7 +146,7 @@ test: flake8
 	@echo "MIN_INSTANCE_COUNT_SENDER: 4" >> data.yml
 	@echo "MAX_INSTANCE_COUNT_SENDER: 20" >> data.yml
 	@echo "MIN_INSTANCE_COUNT_SAVE_API_NOTIFICATIONS: 4" >> data.yml
-	@echo "MAX_INSTANCE_COUNT_SAVE_API_NOTIFICATIONS: 20" >> data.yml
+	@echo "MAX_INSTANCE_COUNT_SAVE_API_NOTIFICATIONS: 25" >> data.yml
 	@echo "MIN_INSTANCE_COUNT_REPORTING: 1" >> data.yml
 	@echo "MAX_INSTANCE_COUNT_REPORTING: 2" >> data.yml
 	@echo "MAX_INSTANCE_COUNT_API: 25" >> data.yml
